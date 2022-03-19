@@ -9,7 +9,7 @@ groups:name,posts,followers
 /
 /newsfeed
 /profile
-/group,   /group/post
+/group,   /group/post /group/create
 /user    /user/post
 
 
