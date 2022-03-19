@@ -1,0 +1,16 @@
+		tables
+user:username,password,name,dob,phoneno,gender,{posts},{following},{followers}
+posts:caption,text,image,likes,date
+comments:{post},{user},text,likes,date
+groups:name,posts,followers
+
+
+		pages
+/
+/newsfeed
+/profile
+/group,   /group/post
+/user    /user/post
+
+
+		
