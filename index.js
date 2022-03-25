@@ -4,6 +4,7 @@ const engine = require("ejs-mate");
 const PORT = 8080;
 const session = require("express-session");
 const passport = require("passport");
+const bcrypt = require('bcryptjs');
 const LocalStrategy = require("passport-local").Strategy;
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -33,9 +34,15 @@ passport.use(
             if (!user) {
                 return done(null, false, { message: "Incorrect username" });
             }
-            if (user.password !== password) {
-                return done(null, false, { message: "Incorrect password" });
-            }
+            bcrypt.compare(password, user.password, (err, res) => {
+                if (res) {
+                    // passwords match! log user in
+                    return done(null, user)
+                } else {
+                    // passwords do not match!
+                    return done(null, false, { message: "Incorrect password" })
+                }
+            });
             return done(null, user);
         });
     })
@@ -68,16 +75,7 @@ app.use('/', homeRoutes);
 app.get('/', (req, res) => {
     res.render('home')
 });
-app.post('/', async (req, res) => {
-    console.log(req.body);
-    const add = new User({
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.epassword
-    });
-    await add.save();
-    res.redirect('/');
-});
+
 
 
 app.listen(PORT, () => {
