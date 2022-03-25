@@ -16,7 +16,7 @@ const userschema = new Schema({
     },
     dob: {
         type: Date,
-        required: true
+        // required: true
     },
     phoneno: {
         type: String,
