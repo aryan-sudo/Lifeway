@@ -20,7 +20,7 @@ const userschema = new Schema({
     },
     phoneno: {
         type: String,
-        required: true
+        // required: true
 
     },
     gender: {
