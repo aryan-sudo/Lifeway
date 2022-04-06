@@ -30,7 +30,16 @@ router.get("/newsfeed", async (req, res) => {
 });
 
 router.post("/profile", async (req, res) => {
-    res.render("profile", { user: req.user });
+    const list = await User.findOne({ username: req.user }).populate("posts");
+    res.render("profile", { list });
+});
+
+router.post("/createpost", async (req, res) => {
+    const user = await User.findOne({ username: req.user });
+    const post = new Posts(req.body);
+    user.posts.push(post);
+    await post.save();
+    await user.save();
 });
 
 router.post('/signup', (req, res) => {

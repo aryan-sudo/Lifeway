@@ -27,10 +27,10 @@ const userschema = new Schema({
         type: String,
         enum: ["Male", "Female", "Other"]
     },
-    posts: {
+    posts: [{
         type: Schema.Types.ObjectId,
         ref: 'Posts'
-    },
+    }],
     following: {
         type: Schema.Types.ObjectId,
         ref: 'User'
